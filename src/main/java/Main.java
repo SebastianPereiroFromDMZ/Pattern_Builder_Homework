@@ -1,4 +1,3 @@
-import java.util.OptionalInt;
 
 public class Main {
 
@@ -24,6 +23,17 @@ public class Main {
 
         System.out.println(dad);
 
+        Person person = new PersonBuilder()
+                .setName("SomeName")
+                .setSurname("SomeName")
+                .setAddress("City")
+                .setAge(0)
+                .build();
+        System.out.println("Person has age? " + person.hasAge());
+        person.happyBirthday();
+        person.happyBirthday();
+        person.happyBirthday();
+        System.out.println(person.hasAge());
 
 
         try {
@@ -37,7 +47,5 @@ public class Main {
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
-
-
     }
 }

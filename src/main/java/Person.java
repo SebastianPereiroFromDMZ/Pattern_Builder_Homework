@@ -1,35 +1,38 @@
 import java.util.Objects;
-import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.Random;
 
+
 public class Person {
 
-    protected final String name;
-    protected final String surname;
-    protected int age;
-    protected String address;
+    private final String name;
+    private final String surname;
+    private int age;
+    private String address;
+    private boolean hasAge = false;
+    private boolean hasAddress = false;
 
-
-    public Person(String name, String surname, int age, String address) {
-        this.name = name;
-        this.surname = surname;
-        if(!hasAge()) {
-            this.age = age;
+    public Person(PersonBuilder personBuilder) {
+        this.name = personBuilder.name;
+        this.surname = personBuilder.surname;
+        if (personBuilder.hasAge) {
+            this.age = personBuilder.age;
+            this.hasAge = true;
         }
-        if (!hasAddress()) {
-            this.address = address;
+        if (personBuilder.hasAddress) {
+            this.address = personBuilder.address;
+            this.hasAddress = true;
         }
     }
 
 
     public boolean hasAge() {
-        return age != 0;
+        return hasAge;
     }
 
 
     public boolean hasAddress() {
-        return address != null;
+        return hasAddress;
     }
 
     public String getName() {
@@ -60,7 +63,7 @@ public class Person {
         this.age = age + 1;
     }
 
-    public PersonBuilder newChildBuilder()  {
+    public PersonBuilder newChildBuilder() {
         Random random = new Random();
         int maxChildAge = 14;
         return new PersonBuilder().setSurname(this.surname).setAge(random.nextInt(maxChildAge)).setAddress(this.address);
@@ -71,8 +74,8 @@ public class Person {
         return "Person{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                (hasAge()? ", age='" + age + "'" : " ") +
-                (hasAddress()? ", address='" + address + "'" : " " ) +
+                (hasAge() ? ", age='" + age + "'" : " ") +
+                (hasAddress() ? ", address='" + address + "'" : " ") +
                 '}';
     }
 

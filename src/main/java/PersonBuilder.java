@@ -3,6 +3,8 @@ public class PersonBuilder {
     protected String surname;
     protected int age;
     protected String address;
+    protected boolean hasAge = false;
+    protected boolean hasAddress = false;
 
 
     public PersonBuilder setName(String name) {
@@ -21,11 +23,13 @@ public class PersonBuilder {
         if (this.age < 0 || this.age > 150){
             throw new IllegalArgumentException("Incorrect age");
         }
+        this.hasAge = true;
         return this;
     }
 
     public PersonBuilder setAddress(String address) {
         this.address = address;
+        this.hasAddress = true;
         return this;
     }
 
@@ -33,7 +37,6 @@ public class PersonBuilder {
         if (name == null || surname == null){
             throw new IllegalStateException("You didn't specify your name or last surname");
         }
-        return new Person(name, surname, age, address);
+        return new Person(this);
     }
 }
-
